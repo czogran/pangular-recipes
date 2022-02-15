@@ -1,0 +1,10 @@
+.content-wrapper {
+  display: grid;
+  grid-row-gap: 20px;
+  grid-column-gap: 20px;
+  grid-template-columns: auto auto;
+
+  &__data-descriptor {
+    font-weight: bold;
+  }
+}

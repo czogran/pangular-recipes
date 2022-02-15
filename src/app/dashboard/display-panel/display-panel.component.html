@@ -1,0 +1,197 @@
+<mat-card *ngIf="notChosenRecipe">
+  <mat-card-title class="mat-card-title__header">
+    <div class="title-wrapper">
+      <span>Recipe not chosen</span>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content> THERE IS NO RECIPE </mat-card-content>
+</mat-card>
+<mat-card *ngIf="!notChosenRecipe">
+  <mat-card-title class="mat-card-title__header">
+    <div class="title-wrapper">
+      <span *ngIf="addMode">Adding new recipe</span>
+      <span *ngIf="!addMode && editMode">Editing recipe</span>
+      <span *ngIf="!editMode">Recipe: {{ recipe.name }}</span>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit(recipeForm)">
+      <mat-list>
+        <mat-list-item>
+          <div class="element-wrapper">
+            <div>Name:</div>
+            <mat-form-field *ngIf="editMode; else displayName">
+              <input
+                matInput
+                id="nameControl"
+                formControlName="nameControl"
+                type="text"
+              />
+              <mat-error
+                *ngIf="recipeForm.get('nameControl')?.hasError('required')"
+              >
+                Name is required
+              </mat-error>
+              <mat-error
+                *ngIf="recipeForm.get('nameControl')?.hasError('minlength')"
+              >
+                Name is too short, min 3
+              </mat-error>
+              <mat-error
+                *ngIf="recipeForm.get('nameControl')?.hasError('maxlength')"
+              >
+                Name is too long, max 80
+              </mat-error>
+            </mat-form-field>
+            <ng-template #displayName>
+              <span> {{ recipe.name }}</span>
+            </ng-template>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item>
+          <div class="element-wrapper">
+            <div>Preparation time:</div>
+            <mat-form-field *ngIf="editMode; else displayPreparationTime">
+              <input
+                matInput
+                formControlName="preparationTimeControl"
+                type="number"
+              />
+              <mat-error
+                *ngIf="
+                  recipeForm.get('preparationTimeControl')?.hasError('required')
+                "
+              >
+                Preparation time is required
+              </mat-error>
+            </mat-form-field>
+            <ng-template #displayPreparationTime>
+              <span>
+                {{ recipe.preparationTimeInMinutes | preparationTime }}</span
+              >
+            </ng-template>
+          </div>
+        </mat-list-item>
+
+        <mat-list-item class="mat-list-item__wrapper">
+          <div class="element-wrapper">
+            <div>Description:</div>
+            <mat-form-field
+              *ngIf="editMode; else displayPreparationTime"
+              appearance="fill"
+            >
+              <textarea
+                matInput
+                formControlName="descriptionControl"
+                type="text"
+              ></textarea>
+              <mat-error
+                *ngIf="
+                  recipeForm.get('descriptionControl')?.hasError('required')
+                "
+              >
+                Description is required
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  recipeForm.get('descriptionControl')?.hasError('minlength')
+                "
+              >
+                Name is too short, min 15
+              </mat-error>
+              <mat-error
+                *ngIf="
+                  recipeForm.get('descriptionControl')?.hasError('maxlength')
+                "
+              >
+                Description is too long, max 255
+              </mat-error>
+            </mat-form-field>
+            <ng-template #displayPreparationTime>
+              <span>
+                {{ recipe.preparationTimeInMinutes | preparationTime }}</span
+              >
+            </ng-template>
+          </div>
+        </mat-list-item>
+      </mat-list>
+
+      <mat-list formArrayName="ingredientsArray">
+        <mat-list-item>
+          <div>Ingredients:</div>
+          <mat-error
+            *ngIf="recipeForm.get('ingredientsArray')?.hasError('required')"
+          >
+            Ingredients are required
+          </mat-error>
+          <mat-error
+            *ngIf="recipeForm.get('ingredientsArray')?.hasError('minlength')"
+          >
+            Minimum two Ingredients are required
+          </mat-error>
+        </mat-list-item>
+
+        <mat-list-item
+          *ngFor="let ingredient of ingredientsArray.controls; let i = index"
+          class="mat-list-item__ingredient"
+        >
+          <div class="ingredients-element" [formGroupName]="i">
+            <div class="element-wrapper element-wrapper--ingredient">
+              <div>Name:</div>
+              <mat-form-field *ngIf="editMode; else displayIngredientName">
+                <input
+                  matInput
+                  id="ingredient-name-{{ i }}"
+                  formControlName="name"
+                  type="text"
+                />
+              </mat-form-field>
+              <ng-template #displayIngredientName>
+                <span>{{ ingredient.value.name }}</span>
+              </ng-template>
+            </div>
+            <div class="element-wrapper element-wrapper--ingredient">
+              <div>Quantity:</div>
+              <mat-form-field *ngIf="editMode; else displayIngredientQuantity">
+                <input
+                  matInput
+                  id="ingredient-quantity-{{ i }}"
+                  formControlName="quantity"
+                  type="text"
+                />
+              </mat-form-field>
+              <ng-template #displayIngredientQuantity>
+                <span>{{ 'recipe?.ingredients[i]?.quantity' }}</span>
+              </ng-template>
+            </div>
+            <div class="element-wrapper element-wrapper--ingredient">
+              <mat-icon
+                *ngIf="editMode"
+                (click)="deleteIngredientIconClicked(i)"
+                >delete</mat-icon
+              >
+            </div>
+          </div>
+        </mat-list-item>
+        <mat-action-row>
+          <button mat-raised-button (click)="addIngredientsArray()">
+            Add ingredient
+          </button>
+        </mat-action-row>
+      </mat-list>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Cancel</button>
+    <button
+      mat-button
+      [disabled]="recipeForm.invalid"
+      (click)="onSaveClicked()"
+    >
+      Save
+    </button>
+  </mat-card-actions>
+</mat-card>

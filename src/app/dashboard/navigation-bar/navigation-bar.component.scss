@@ -1,0 +1,14 @@
+.title {
+  display: flex;
+  justify-content: space-between;
+
+  &__logo {
+    background-color: azure;
+    box-shadow: 0 0 20px 5px azure;
+  }
+
+  &__icon {
+    margin-right: 20px;
+    cursor: pointer;
+  }
+}

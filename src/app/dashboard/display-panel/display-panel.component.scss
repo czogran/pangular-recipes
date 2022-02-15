@@ -1,0 +1,57 @@
+//app-display-panel {
+//  border: 1px solid red;
+//  .display-panel {
+//    background-color: red;
+//  }
+//}
+
+:host(.display-panel) {
+  width: 70%;
+  min-width: 250px;
+}
+
+.title-wrapper {
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
+
+mat-card-title {
+  &.mat-card-title__header {
+    margin-bottom: 20px;
+  }
+}
+
+mat-list-item {
+  &.mat-list-item__wrapper {
+    height: 150px;
+  }
+
+  &.mat-list-item__ingredient {
+    height: 150px;
+    margin-bottom: 20px;
+
+  }
+}
+
+.element-wrapper {
+  align-items: baseline;
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  &--ingredient {
+    height: 30px;
+  }
+}
+
+.ingredients-element {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+  border-radius: 20px;
+  height: 150px;
+}

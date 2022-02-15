@@ -1,0 +1,33 @@
+<mat-card>
+  <mat-card-title class="mat-card-title__header">
+    <mat-form-field>
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput placeholder="Search here" />
+    </mat-form-field>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <div class="list-wrapper" *ngFor="let recipe of recipes">
+      <ng-container
+        [ngTemplateOutlet]="recipeRow"
+        [ngTemplateOutletContext]="{ $implicit: recipe }"
+      ></ng-container>
+    </div>
+    <mat-divider class="mat-divider__content"></mat-divider>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="onAddClicked()">Add new</button>
+  </mat-card-actions>
+</mat-card>
+
+<ng-template #recipeRow let-recipe>
+  <div class="recipe-element">
+    <span (click)="nameClicked(recipe._id)" class="recipe-element__name">{{
+      recipe.name
+    }}</span>
+    <button mat-icon-button>
+      <mat-icon (click)="deleteIconClicked(recipe)">delete</mat-icon>
+    </button>
+    <button mat-raised-button>Edit</button>
+  </div>
+</ng-template>

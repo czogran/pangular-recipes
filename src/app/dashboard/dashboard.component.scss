@@ -1,0 +1,22 @@
+app-dashboard {
+  margin: 10%;
+}
+
+:host(.dashboard) {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation-bar {
+  margin-bottom: 50px;
+}
+
+.recipes-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  &__list {
+    margin-right: 20px;
+  }
+}

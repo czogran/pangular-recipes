@@ -1,0 +1,5 @@
+<span mat-dialog-title>Are you sure to delete recipe: {{ data.name }}</span>
+<div mat-dialog-actions>
+  <button mat-button cdkFocusInitial (click)="onNoClick()">No</button>
+  <button mat-button [mat-dialog-close]="data.name">Ok</button>
+</div>
