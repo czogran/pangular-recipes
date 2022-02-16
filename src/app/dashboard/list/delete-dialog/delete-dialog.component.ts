@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DeleteDialogDataInterface } from '../../../common/interfaces/interfaces';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -15,8 +16,4 @@ export class DeleteDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-}
-
-export interface DeleteDialogDataInterface {
-  name: string;
 }

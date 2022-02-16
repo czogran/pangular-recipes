@@ -1,16 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  host: {'class': 'dashboard'}
 })
-export class DashboardComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class DashboardComponent {
+  @HostBinding('class') classes = 'dashboard';
 }

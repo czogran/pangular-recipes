@@ -1,31 +1,5 @@
-//.search-wrapper {
-//  .mat-form-field-flex {
-//    display: flex;
-//    align-items: flex-end;
-//    background-color: red !important;
-//  }
-//}
-//
-//.test {
-//  display: flex;
-//  .mat-form-field-flex {
-//    display: flex;
-//    align-items: flex-end;
-//    background-color: red !important;
-//  }
-//}
-
-//.mat-form-field-flex {
-//  display: flex;
-//  align-items: flex-end;
-//  background-color: red !important;
-//}
-
-:host(.list) {
-  background-color: red !important;
-  width: 30%;
-  max-width: 1000px;
-  min-width: 250px;
+.search-icon {
+  cursor: pointer;
 }
 
 .list-wrapper {
@@ -52,5 +26,11 @@ mat-card-title {
 mat-divider {
   &.mat-divider__content {
     margin-top: 20px;
+  }
+}
+
+mat-card-actions {
+  &.mat-card-actions__add {
+    padding-top: 20px;
   }
 }

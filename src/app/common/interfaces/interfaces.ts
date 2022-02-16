@@ -1,3 +1,8 @@
+export interface AppConfig {
+  apiEndpoint: string;
+  apiKey: string;
+}
+
 export interface Ingredient {
   _id?: string;
   name?: string;
@@ -5,9 +10,13 @@ export interface Ingredient {
 }
 
 export interface Recipe {
-  _id?: string;
+  _id: string;
   name?: string;
   preparationTimeInMinutes?: number;
   description?: string;
   ingredients?: Ingredient[];
+}
+
+export interface DeleteDialogDataInterface {
+  name: string;
 }

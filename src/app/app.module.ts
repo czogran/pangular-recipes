@@ -1,22 +1,1 @@
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    AppRoutingModule,
-    //
-    CommonModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
+import { CommonModule } from '@angular/common';import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';import { NgModule } from '@angular/core';import { MatSnackBarModule } from '@angular/material/snack-bar';import { BrowserModule } from '@angular/platform-browser';import { BrowserAnimationsModule } from '@angular/platform-browser/animations';import { AppRoutingModule } from './app-routing.module';import { AppComponent } from './app.component';import { APP_CONFIG } from './app.config';import { HttpErrorInterceptor } from './common/interceptors/http-error.interceptor';import { AppConfig } from './common/interfaces/interfaces';import {HttpSuccessInterceptor} from "./common/interceptors/http-success.interceptor";import {HttpHeadersInterceptor} from "./common/interceptors/http-headers.interceptor";let PANGULAR_CONFIG: AppConfig = {  apiEndpoint: 'https://crudcrud.com/api/5194d613b8674721aff3689266a32660',  apiKey: 'HoA',};@NgModule({  declarations: [AppComponent],  imports: [    AppRoutingModule,    //    CommonModule,    BrowserModule,    BrowserAnimationsModule,    HttpClientModule,    MatSnackBarModule,  ],  providers: [    { provide: APP_CONFIG, useValue: PANGULAR_CONFIG },    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },    { provide: HTTP_INTERCEPTORS, useClass: HttpSuccessInterceptor, multi: true },    { provide: HTTP_INTERCEPTORS, useClass: HttpHeadersInterceptor, multi: true },  ],  bootstrap: [AppComponent],})export class AppModule {}

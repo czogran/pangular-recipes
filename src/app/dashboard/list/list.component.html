@@ -1,13 +1,21 @@
 <mat-card>
   <mat-card-title class="mat-card-title__header">
     <mat-form-field>
-      <mat-icon matPrefix>search</mat-icon>
-      <input matInput placeholder="Search here" />
+      <mat-icon matPrefix class="search-icon">search</mat-icon>
+      <input
+        matInput
+        placeholder="Search here"
+        [(ngModel)]="searchQuery"
+        (blur)="search()"
+      />
     </mat-form-field>
     <mat-divider></mat-divider>
   </mat-card-title>
   <mat-card-content>
-    <div class="list-wrapper" *ngFor="let recipe of recipes">
+    <div
+      class="list-wrapper"
+      *ngFor="let recipe of recipesToDisplay; trackBy: identify"
+    >
       <ng-container
         [ngTemplateOutlet]="recipeRow"
         [ngTemplateOutletContext]="{ $implicit: recipe }"
@@ -15,7 +23,7 @@
     </div>
     <mat-divider class="mat-divider__content"></mat-divider>
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions class="mat-card-actions__add">
     <button mat-button (click)="onAddClicked()">Add new</button>
   </mat-card-actions>
 </mat-card>
@@ -28,6 +36,6 @@
     <button mat-icon-button>
       <mat-icon (click)="deleteIconClicked(recipe)">delete</mat-icon>
     </button>
-    <button mat-raised-button>Edit</button>
+    <button mat-raised-button (click)="editButtonClicked(recipe._id)">Edit</button>
   </div>
 </ng-template>

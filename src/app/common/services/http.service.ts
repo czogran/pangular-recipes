@@ -1,27 +1,46 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { APP_CONFIG } from '../../app.config';
+import { AppConfig, Recipe } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  url: string = 'https://crudcrud.com/api/af7734d5af9a460699fa496cc1c01110';
-  constructor(private httpClient: HttpClient) {}
+  url: string;
+  key: string;
 
-  getRecipes() {}
+  constructor(
+    private httpClient: HttpClient,
+    @Inject(APP_CONFIG) config: AppConfig
+  ) {
+    this.url = config.apiEndpoint + '/recipe';
+    this.key = config.apiKey;
+  }
 
-  getRecipe() {}
+  getRecipes(): Observable<Recipe[]> {
+    return this.httpClient.get<Recipe[]>(this.url);
+  }
 
-  addRecipe(recipe: any): Observable<any> {
+  getRecipe(id: string): Observable<Recipe> {
+    return this.httpClient.get<Recipe>(`${this.url}/${id}`);
+  }
+
+  addRecipe(recipe: Recipe): Observable<any> {
+    //Nie udało sie, próbowałem z różnymi flagami ale nie poszło
     // return this.httpClient.post(this.url, recipe, {
     //   headers: { 'X-API-KEY': 'HoA' },
     // });
-    return this.httpClient.post(this.url + '/recipes', recipe);
+
+    return this.httpClient.post(this.url, recipe);
   }
 
-  // HttpClient httpclient = new DefaultHttpClient();
-  // HttpGet request = new HttpGet(theUrl);
-  // request.addHeader("x-api-key", apiKey);
-  // HttpResponse response = httpclient.execute(request);
+  updateRecipe(recipe: Recipe, id: string): Observable<Recipe> {
+    return this.httpClient.put<Recipe>(`${this.url}/${id}`, recipe);
+  }
+
+  deleteRecipe(id: string): Observable<Recipe> {
+    return this.httpClient.delete<Recipe>(`${this.url}/${id}`);
+  }
 }

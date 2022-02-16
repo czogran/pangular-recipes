@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DisplayPanelComponent } from './display-panel.component';
 
 describe('DisplayPanelComponent', () => {
@@ -8,9 +7,8 @@ describe('DisplayPanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DisplayPanelComponent ]
-    })
-    .compileComponents();
+      declarations: [DisplayPanelComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

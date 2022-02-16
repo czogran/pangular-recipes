@@ -1,15 +1,3 @@
-//app-display-panel {
-//  border: 1px solid red;
-//  .display-panel {
-//    background-color: red;
-//  }
-//}
-
-:host(.display-panel) {
-  width: 70%;
-  min-width: 250px;
-}
-
 .title-wrapper {
   height: 100px;
   display: flex;
@@ -30,7 +18,6 @@ mat-list-item {
   &.mat-list-item__ingredient {
     height: 150px;
     margin-bottom: 20px;
-
   }
 }
 
