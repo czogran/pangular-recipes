@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Ingredient, Recipe } from '../../common/interfaces/interfaces';
 import { HttpService } from '../../common/services/http.service';
@@ -64,6 +64,14 @@ export class DisplayPanelComponent implements OnDestroy {
     this.route.params.subscribe(() => {
       this.parseParams();
     });
+
+    this.route.queryParams.subscribe((params) => {
+      this.parseQueryParams(params);
+    });
+  }
+
+  private parseQueryParams(params: Params) {
+    this.editMode = params['edit'] === 'true';
   }
 
   private parseParams() {
@@ -76,7 +84,6 @@ export class DisplayPanelComponent implements OnDestroy {
       return;
     }
     this.id = snapshot?.params['id'];
-    this.editMode = snapshot?.queryParams['edit'] === 'true';
 
     if (!isEmptyString(this.id)) {
       this.getRecipe();
